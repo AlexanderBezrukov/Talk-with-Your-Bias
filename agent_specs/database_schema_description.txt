@@ -1,0 +1,63 @@
+#DATABASE DESCRIPTION (Bias and Fairness Analysis Database)
+The Bias and Fairness Analysis database is designed to manage and analyze bias detection metrics, tools, datasets, critical domains, laws, and protected attributes. This database provides a structured approach to understanding bias in datasets and tools, as well as their legal implications. Below is a detailed description of the tables and their columns:
+
+#bias_metrics_data
+This table stores information about different bias metrics used for fairness evaluation.
+
+##Columns:
+id: (Integer) The unique identifier for each bias metric. Primary key.
+name: (String) The name of the bias metric.
+type_of_fairness: (String) The type of fairness the metric evaluates (e.g., "Individual, Group", "Subgroup", "Group").
+target_variable_type: (String) The type of target variable the metric applies to (e.g., "Binary, Categorical, Numerical", "Binary, Categorical").
+description: (String) A detailed explanation of the bias metric.
+
+#bias_detection_tools
+This table stores information about SOTA existing tools used for bias detection.
+
+##Columns:
+id: (Integer) The unique identifier for each bias detection tool. Primary key.
+name: (String) The name of the bias detection tool.
+is_open_source: (String) Indicates whether the tool is open-source (e.g. "Yes", "No").
+num_and_des_supported_metrics: (String) The number and description of supported bias metrics (e.g. "18 (Disparity and performance metrics)").
+type_of_fairness: (String) The type of fairness the tool evaluates "Group Fairness, Individual Fairness".
+supported_data_types: (String) The types of data the tool supports (e.g., "Tabular datasets").
+sensitive_feature_availability: (String) Describes if the tool required protected attribute name (e.g., "Yes").
+description: (String) A brief description of the tool.
+
+#datasets_data
+This table contains details about datasets used in bias and fairness analysis.
+
+##Columns:
+dataset_name: (String) The name of the dataset. Primary key.
+domain: (String) The domain or industry the dataset belongs to (e.g., healthcare, finance).
+task: (String) The type of task associated with the dataset (e.g., classification, regression).
+protected_attributes: (String) The list of protected attributes present in the dataset (e.g., gender, race).
+bias_concerns: (String) The known bias concerns related to the dataset.
+
+#critical_domains_data
+This table maps datasets to critical domains where fairness is a key concern. many to many. example: ["Law Enforcement & Criminal Justice", "COMPAS"],["Law Enforcement & Criminal Justice", "ProPublica Violent Recidivism"].
+
+##Columns:
+critical_domain: (String) The critical domain name (e.g., "Law Enforcement & Criminal Justice").
+dataset_name: (String) The name of the dataset used in this critical domain (e.g "COMPAS"). Foreign key referencing the datasets_data table.
+
+#laws_data
+This table stores information about laws related to fairness and bias in AI and data processing.
+
+##Columns:
+law_name: (String) The full name of the law.
+law_abbreviation: (String) The abbreviation of the law (e.g., GDPR, Fair Housing Act). Primary key.
+
+#protected_attributes_data
+This table defines various protected attributes that are relevant in bias analysis.
+
+##Columns:
+protected_attribute: (String) The name of the protected attribute (e.g., age, gender, race). Primary key.
+description: (String) A brief description of the protected attribute.
+
+#protected_attributes_laws_data
+This table establishes the relationship between protected attributes and the laws that govern them.
+
+##Columns:
+protected_attribute: (String) The protected attribute name. Foreign key referencing the protected_attributes_data table.
+law_abbreviation: (String) The abbreviation of the law that protects this attribute. Foreign key referencing the laws_data table.

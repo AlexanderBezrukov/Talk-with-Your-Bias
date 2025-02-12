@@ -1,0 +1,8 @@
+id,name,type_of_fairness,target_variable_type,description
+1,Statistical Parity Difference,Group,"Binary, Categorical",Measures the difference in favorable outcomes between protected and unprotected groups.
+2,Disparate Impact Ratio,Group,"Binary, Categorical",Ratio of favorable outcomes for protected vs. unprotected groups.
+3,Average Treatment Effect (ATE),"Individual, Group","Binary, Numerical",Difference in expected outcomes between treated and untreated groups.
+4,Conditional Average Treatment Effect (CATE),Subgroup,"Binary, Numerical","Treatment effect within specific subgroups, controlling for confounders."
+5,Counterfactual Distance,Individual,"Binary, Categorical, Numerical",Measures how much a feature needs to change to alter a model's decision.
+6,Equalized Odds Difference,Group,Binary,Disparity in true positive and false positive rates across groups.
+7,Counterfactual Fairness Test,Individual,"Binary, Categorical",Compares predictions for real and counterfactual individuals with changed attributes.

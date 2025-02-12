@@ -1,0 +1,44 @@
+#Example Queries
+user: tell me about existing dataset in finance
+SELECT dataset_name,
+       domain,
+       task,
+       protected_attributes,
+       bias_concerns
+FROM   datasets_data
+WHERE  domain like '%Finance%';
+
+user: what are the tools to detect bias for finance
+it means tools support tabular data, supported_data_types has values like "Tabular, Image" or "Tabular datasets"
+SELECT name,
+       is_open_source,
+       num_and_des_supported_metrics,
+       type_of_fairness,
+       supported_data_types,
+       sensitive_feature_availability,
+       description
+FROM   bias_detection_tools
+WHERE supported_data_types LIKE '%Tabular%';
+
+user: asking about AI EU Act
+SELECT ALL
+FROM   laws_data
+WHERE  law_name like '%EU AI Act%';
+
+user: give me existing biased datasets and tell what LAW act they violate
+SELECT
+    dd.dataset_name,
+    dd.domain,
+    dd.bias_concerns,
+    pal.law_abbreviation,
+    ld.law_name
+FROM
+    datasets_data dd
+JOIN
+    protected_attributes_data pad ON dd.protected_attributes LIKE '%' || pad.protected_attribute || '%'
+JOIN
+    protected_attributes_laws_data pal ON pad.protected_attribute = pal.protected_attribute
+JOIN
+    laws_data ld ON pal.law_abbreviation = ld.law_abbreviation
+WHERE
+    dd.bias_concerns IS NOT NULL;

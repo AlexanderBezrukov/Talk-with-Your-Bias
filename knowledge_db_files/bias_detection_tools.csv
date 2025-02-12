@@ -1,0 +1,24 @@
+id,name,is_open_source,num_and_des_supported_metrics,type_of_fairness,supported_data_types,sensitive_feature_availability,description
+1,Microsoft’s Fairlearn,Yes,18 (Disparity and performance metrics),Group Fairness,Tabular datasets,Yes,Focuses on mitigating unfairness in machine learning models.
+2,Aequitas,Yes,21,Group Fairness,Tabular datasets,Yes,Designed to identify bias in decision-making systems.
+3,What-If Tool,Yes,Varies,"Group Fairness, Individual Fairness","Tabular, Image",Yes,Allows interactive exploration of model performance and fairness.
+4,AI Fairness 360,Yes,70+,"Group Fairness, Individual Fairness, Subgroup Fairness",Tabular datasets,Yes,Comprehensive toolset for detecting and mitigating bias in AI.
+5,FairML,Yes,1 (Feature importance),Individual Fairness,Tabular datasets,Yes,Analyzes feature importance to understand model bias.
+6,FairLens,Yes,2 (Disparity metrics),Group Fairness,Tabular datasets,Yes,Evaluates disparity metrics to uncover biases in datasets.
+7,LIME,Yes,Varies,Individual Fairness,"Tabular, Text, Image",Yes,Explains individual predictions for various data types.
+8,REVISE (REvealing VIsual biaSEs),Yes,5 (Performance and disparity metrics),Group Fairness,"Text, Image",Yes,Focuses on identifying biases in visual data.
+9,DEON,Yes,N/A,Group Fairness,Any,Yes,Offers ethical checklists to guide AI development.
+10,FairSight,Yes,Varies,Group Fairness,Tabular datasets,Yes,Provides visualization tools for fairness assessment.
+11,BlackBoxAuditing,Yes,Varies,Group Fairness,Tabular datasets,Yes,Audits machine learning models to detect discrimination.
+12,fairness-indicators,Yes,4,Group Fairness,Tabular datasets,Yes,Monitors and reports fairness metrics in real-time.
+13,Responsible-AI-Toolbox,Yes,20+,"Group Fairness, Individual Fairness",Tabular datasets,Yes,Integrates multiple fairness and interpretability tools.
+14,Responsibly,Yes,9,Group Fairness,Tabular datasets,Yes,Focuses on responsible data analysis practices.
+15,SolasAI,No,Varies,"Group Fairness, Individual Fairness",Tabular datasets,Yes,Commercial tool for comprehensive bias detection and mitigation.
+16,smclarify,Yes,20+,Group Fairness,Tabular datasets,Yes,Provides bias detection and explainability for Amazon SageMaker.
+17,inFairness,Yes,15+,"Group Fairness, Individual Fairness",Tabular datasets,Yes,Combines fairness metrics with detailed explanations.
+18,Dalex,Yes,10+,"Group Fairness, Individual Fairness",Tabular datasets,Yes,Focuses on model interpretability and fairness diagnostics.
+19,PiML,Yes,Varies,"Group Fairness, Individual Fairness",Tabular datasets,Yes,Integrates fairness with predictive model insights.
+20,Themis-ML,Yes,3+,Group Fairness,Tabular datasets,Yes,Tests for discrimination in machine learning models.
+21,Amazon SageMaker Clarify,No,20+,Group Fairness,Tabular datasets,Yes,Detects and mitigates bias in machine learning workflows.
+22,Accenture’s 'Teach and Test' Framework,No,Varies,"Group Fairness, Individual Fairness",Tabular datasets,Yes,Framework for assessing and improving AI fairness.
+23,IBM Watson OpenScale,No,10+,Group Fairness,Tabular datasets,Yes,Monitors AI models for bias and fairness in production.

@@ -1,0 +1,18 @@
+protected_attribute,law_abbreviation
+Race/Ethnicity,CRA
+Race/Ethnicity,FHA
+Race/Ethnicity,ECOA
+Race/Ethnicity,EA
+Race/Ethnicity,EU AI
+Sex/Gender,CRA
+Sex/Gender,FHA
+Sex/Gender,ECOA
+Sex/Gender,EA
+Sex/Gender,EU AI
+Age,CRA
+Age,ECOA
+Age,EA
+Age,EU AI
+Socioeconomic Status,EU AI
+Biometric Data,EU AI
+Migrant Status,EU AI
