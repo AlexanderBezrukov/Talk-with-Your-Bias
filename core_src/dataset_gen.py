@@ -12,7 +12,6 @@ from langchain_core.messages import HumanMessage, AIMessage
 import io
 import sys
 
-OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 store = {}
 
 
@@ -26,7 +25,7 @@ def get_session_history(session_id: str) -> BaseChatMessageHistory:
 
 class Data_Generator:
     def __init__(self, model_name:str):
-        self.llm1 = ChatOpenAI(openai_api_key=OPENAI_API_KEY, model_name=model_name, temperature=0.00001)
+        self.llm1 = ChatOpenAI(openai_api_key=os.getenv("OPENAI_API_KEY"), model_name=model_name, temperature=0.00001)
         self.generate_code_prompt = """
             # Context:
             You are a highly skilled data analyst and Python programmer. You will receive a DataFrame description along with the conversation history, column information, and sample data. Your task is to generate Python code that performs a fairness analysis of the data. The analysis should go beyond basic calculations and provide deep insights through the use of aggregations, bias statistical metrics, or data transformations.

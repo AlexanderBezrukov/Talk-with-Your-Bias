@@ -1,18 +1,18 @@
-dataset_name,domain,task,protected_attributes,bias_concerns
-COMPAS,Criminal Justice,Recidivism Prediction,"Race, Gender",Racial bias in recidivism predictions
-ProPublica Violent Recidivism,Criminal Justice,Violent Recidivism Prediction,"Race, Gender",Racial and gender bias in predicting violent recidivism
-Adult Census Income,Employment,Income Classification,Gender,Bias in predicting income levels
-Credit Card Clients,Finance,Credit Default Prediction,"Gender, Education, Marital Status",Fairness in credit risk assessment
-MEPS,Healthcare,Healthcare Cost and Usage Analysis,"Race, Gender, Socio-Economic Status",Bias in health indicators and predictive models
-Adult German Credit,Finance,Credit Risk Assessment,"Age, Foreign Worker Status",Age and nationality bias in credit approval
-Communities and Crime,Criminal Justice,Crime Rate Prediction,"Race, Socio-Economic Status, Gender",Bias in crime predictions
-Health Heritage,Healthcare,Hospital Admission Prediction,"Age, Gender, Socio-Economic Status",Bias in healthcare predictions
-Diabetes,Healthcare,Hospital Readmission Prediction,Gender,Bias in healthcare outcomes
-Boston Housing,Housing & Socioeconomics,Housing Price Prediction,Race,Racial bias due to historical redlining
-Dutch Census,Employment,Employment and Economic Analysis,"Nationality, Religion",Bias in employment predictions
-LSAC,Education,Law School Admission Prediction,"Race, Gender",Bias in law school admissions
-Student—Mathematics,Education,Student Performance Prediction,"Age, Gender",Bias in student outcome predictions
-Student—Portuguese,Education,Student Performance Prediction,"Age, Gender",Bias in student outcome predictions
-OULAD,Education,Online Learning Performance Prediction,Gender,Bias in online education predictions
-Bank Marketing,Finance,Subscription Prediction,"Age, Marital Status",Age-related bias in financial predictions
-Ricci v. DeStefano,Employment,Promotion Decision Prediction,Race,Fairness in promotion decisions
+dataset_name,critical_domain,task,bias_concerns,ml_task
+COMPAS,Law Enforcement & Criminal Justice,Recidivism Prediction,Racial bias in recidivism predictions,binary classification
+ProPublica Violent Recidivism,Law Enforcement & Criminal Justice,Violent Recidivism Prediction,Racial and gender bias in predicting violent recidivism,binary classification
+Adult Census Income,Employment & Worker Management,Income Classification,Bias in predicting income levels,binary classification
+Credit Card Clients,Finance,Credit Default Prediction,Fairness in credit risk assessment,binary classification
+MEPS,Healthcare,Healthcare Cost and Usage Analysis,Bias in health indicators and predictive models,multiregression
+Adult German Credit,Finance,Credit Risk Assessment,Age and nationality bias in credit approval,binary classification
+Communities and Crime,Criminal Justice,Crime Rate Prediction,Bias in crime predictions,regression
+Health Heritage,Healthcare,Hospital Admission Prediction,Bias in healthcare predictions,binary classification
+Diabetes,Healthcare,Hospital Readmission Prediction,Bias in healthcare outcomes,binary classification
+Boston Housing,Housing & Socioeconomics,Housing Price Prediction,Racial bias due to historical redlining,regression
+Dutch Census,Employment & Worker Management,Employment and Economic Analysis,Bias in employment predictions,binary classification
+LSAC,Education,Law School Admission Prediction,Bias in law school admissions,binary classification
+Student—Mathematics,Education,Student Performance Prediction,Bias in student outcome predictions,regression
+Student—Portuguese,Education,Student Performance Prediction,Bias in student outcome predictions,regression
+OULAD,Education,Online Learning Performance Prediction,Bias in online education predictions,binary classification
+Bank Marketing,Finance,Subscription Prediction,Age-related bias in financial predictions,binary classification
+Ricci v. DeStefano,Employment & Worker Management,Promotion Decision Prediction,Fairness in promotion decisions,binary classification

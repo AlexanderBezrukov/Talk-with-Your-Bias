@@ -85,3 +85,13 @@ You can run the app from the command line.
   ```bash
   streamlit run talk_with_your_bias.py --server.port=8501 
   ```
+
+## \ud83d\udc33 Run with Docker (Recommended)\n\n
+### 1. Clone the Repository\n\n
+```bash\ngit clone https://github.com/AlexanderBezrukov/Talk-with-Your-Bias.git\ncd Talk-with-Your-Bias\n```\n\n
+### 2. Build the Docker Image\n\n
+```bash\ndocker build -t talk-with-your-bias .\n```
+### 3. Run the Docker Container\n\n
+```bash\ndocker run -p 8500:8500 talk-with-your-bias\n```
+## Open your browser and navigate to: [http://localhost:8500](http://localhost:8500)\n\n---\n\n
+## \ud83d\udd11 One-Time Setup: OpenAI API Key\n\n When the app first loads:\n\n1. Paste your **OpenAI API key** into the input field.\n2. Click **\"ENTER\"**.\n3. Your API key is now stored for the current session, and you're ready to use the assistant.\n\n> \ud83d\udca1 You only need to enter your key **once per session**, unless the container is restarted."

@@ -10,7 +10,7 @@ RUN apt-get update && apt-get install -y \
 COPY . .
 RUN pip3 install -r requirements.txt
 
-EXPOSE 8501
+EXPOSE 8500
 
-ENTRYPOINT ["streamlit", "run", "talk_with_your_bias.py", "--server.port=8501", "--server.address=0.0.0.0"]
+ENTRYPOINT ["streamlit", "run", "talk_with_your_bias.py", "--server.port=8500", "--server.address=0.0.0.0"]
 

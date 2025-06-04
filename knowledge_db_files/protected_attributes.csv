@@ -1,15 +1,16 @@
 protected_attribute,description
 Race/Ethnicity,Protection against discrimination based on race or ethnicity
 Color,Protection against discrimination based on skin color
-National Origin,Protection against discrimination based on country of origin
-Religion or Belief,Protection against discrimination based on religious beliefs
-Sex/Gender,Protection against gender-based discrimination
-Disability,Protection against discrimination based on disabilities
-Age,Protection against age-related discrimination
-Marital Status,Protection against marital status discrimination
-Sexual Orientation,Protection against sexual orientation discrimination
-Genetic Information,Protection against genetic data-based discrimination
-Military or Veteran Status,Protection for military/veteran individuals
-Socioeconomic Status,Protection against socioeconomic background discrimination
-Biometric Data,Protection related to biometric privacy
-Migrant Status,Protection against discrimination based on migrant status
+National Origin,Protection against discrimination based on the country or region of origin
+Religion or Belief,Protection against discrimination based on religious beliefs or practices
+Sex/Gender,Protection against discrimination based on gender
+Familial Status,Protection against discrimination based on familial status (including parental and caregiving responsibilities)
+Disability,Protection against discrimination based on physical or mental disabilities
+Age,Protection against age-related discrimination (particularly for older individuals)
+Marital Status,Protection against discrimination based on marital status (including single; married; divorced)
+Sexual Orientation,Protection against discrimination based on sexual orientation
+Genetic Information,Protection against discrimination based on genetic information or genetic testing results
+Military or Veteran Status,Protection against discrimination based on military service or veteran status
+Socioeconomic Status,Protection against discrimination based on socioeconomic background
+Biometric Data,Protection related to biometric data and privacy
+Migrant Status,Protection against discrimination based on migrant or refugee status

@@ -25,21 +25,14 @@ sensitive_feature_availability: (String) Describes if the tool required protecte
 description: (String) A brief description of the tool.
 
 #datasets_data
-This table contains details about datasets used in bias and fairness analysis.
+This table stores high-level information about SOTA real-world biased datasets commonly used to study bias and fairness in machine learning.
 
 ##Columns:
 dataset_name: (String) The name of the dataset. Primary key.
-domain: (String) The domain or industry the dataset belongs to (e.g., healthcare, finance).
-task: (String) The type of task associated with the dataset (e.g., classification, regression).
-protected_attributes: (String) The list of protected attributes present in the dataset (e.g., gender, race).
-bias_concerns: (String) The known bias concerns related to the dataset.
-
-#critical_domains_data
-This table maps datasets to critical domains where fairness is a key concern. many to many. example: ["Law Enforcement & Criminal Justice", "COMPAS"],["Law Enforcement & Criminal Justice", "ProPublica Violent Recidivism"].
-
-##Columns:
-critical_domain: (String) The critical domain name (e.g., "Law Enforcement & Criminal Justice").
-dataset_name: (String) The name of the dataset used in this critical domain (e.g "COMPAS"). Foreign key referencing the datasets_data table.
+critical_domain: (Enum: Law Enforcement & Criminal Justice, Employment & Worker Management, Healthcare, Finance, Education, Housing & Socioeconomics) The application critical area of the dataset (e.g., Criminal Justice, Finance, Healthcare).
+task: (String) A short description of the prediction or classification goal associated with the dataset.
+bias_concerns: (String)  A summary of known or documented bias concerns related to the dataset.
+ml_task: (Enum: regression, binary classification, multiclass classification, multilabel classification, multiregression) The machine learning task type associated with the dataset.
 
 #laws_data
 This table stores information about laws related to fairness and bias in AI and data processing.
@@ -60,4 +53,10 @@ This table establishes the relationship between protected attributes and the law
 
 ##Columns:
 protected_attribute: (String) The protected attribute name. Foreign key referencing the protected_attributes_data table.
-law_abbreviation: (String) The abbreviation of the law that protects this attribute. Foreign key referencing the laws_data table.
+law_abbreviation: (String) The abbreviation of the law that protects this attribute. Foreign key referencing the laws_data table. Values are limited to: CRA, FHA, ECOA, EA, EU AI. It is a foreign key for laws_data to know the full law_name.
+
+#protected_attributes_dataset_data
+This link table maps datasets to the protected attributes they involve.
+##Columns:
+dataset_name: (String) Foreign Key - References datasets_data.dataset_name (from datasets_data table)
+protected_attribute: (String) Foreign Key - References protected_attributes_data.protected_attribute (from protected_attributes_data or protected_attributes_laws_data tables)

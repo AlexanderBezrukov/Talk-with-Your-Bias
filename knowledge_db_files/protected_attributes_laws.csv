@@ -3,16 +3,45 @@ Race/Ethnicity,CRA
 Race/Ethnicity,FHA
 Race/Ethnicity,ECOA
 Race/Ethnicity,EA
-Race/Ethnicity,EU AI
+Race/Ethnicity,EU_AI
+Color,CRA
+Color,FHA
+Color,ECOA
+Color,EA
+Color,EU_AI
+National Origin,CRA
+National Origin,FHA
+National Origin,ECOA
+National Origin,EA
+National Origin,EU_AI
+Religion or Belief,CRA
+Religion or Belief,FHA
+Religion or Belief,ECOA
+Religion or Belief,EA
+Religion or Belief,EU AI
 Sex/Gender,CRA
 Sex/Gender,FHA
 Sex/Gender,ECOA
 Sex/Gender,EA
 Sex/Gender,EU AI
+Familial Status,FHA
+Disability,CRA
+Disability,FHA
+Disability,EA
+Disability,EU AI
 Age,CRA
 Age,ECOA
 Age,EA
 Age,EU AI
+Marital Status,CRA
+Marital Status,ECOA
+Marital Status,EA
+Sexual Orientation,CRA
+Sexual Orientation,EA
+Sexual Orientation,EU AI
+Genetic Information,CRA
+Genetic Information,EU AI
+Military or Veteran Status,CRA
 Socioeconomic Status,EU AI
 Biometric Data,EU AI
 Migrant Status,EU AI

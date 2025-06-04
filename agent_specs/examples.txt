@@ -42,3 +42,6 @@ JOIN
     laws_data ld ON pal.law_abbreviation = ld.law_abbreviation
 WHERE
     dd.bias_concerns IS NOT NULL;
+
+user: Which datasets in the finance domain show bias, and how do they conflict with AI EU Law?
+pay attention, datasets_data does not have protected_attributes field but should be connected via dataset_name and critical_domain

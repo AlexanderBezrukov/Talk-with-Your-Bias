@@ -9,7 +9,7 @@ import json
 import runpy
 import sys
 from io import StringIO
-load_dotenv("credentials.env")
+import os
 from core_src.classification_layer import CLASS_Generator
 from core_src.chat import Chat_Generator
 from core_src.text2sql import SQL_Generator
@@ -23,7 +23,6 @@ from sql_formatter.core import format_sql
 from core_src import prompts
 from langdetect import detect
 from core_src.utils import *
-import os
 import sqlite3
 
 DATASET_PATHS = {
@@ -88,7 +87,7 @@ CRITICAL_DOMAINS = {
 bias_metrics_file = "knowledge_db_files/bias_metrics.csv"
 bias_tools_file = "knowledge_db_files/bias_detection_tools.csv"
 datasets_file = "knowledge_db_files/datasets.csv"
-critical_domains_file = "knowledge_db_files/critical_domains.csv"
+protected_attributes_dataset_file = "knowledge_db_files/protected_attributes_dataset.csv"
 laws_file = "knowledge_db_files/laws.csv"
 protected_attributes_file = "knowledge_db_files/protected_attributes.csv"
 protected_attributes_laws_file = "knowledge_db_files/protected_attributes_laws.csv"
@@ -97,7 +96,7 @@ protected_attributes_laws_file = "knowledge_db_files/protected_attributes_laws.c
 df_bias_metrics = pd.read_csv(bias_metrics_file)
 df_bias_tools = pd.read_csv(bias_tools_file)
 df_datasets = pd.read_csv(datasets_file)
-df_critical_domains = pd.read_csv(critical_domains_file)
+df_protected_attributes_dataset = pd.read_csv(protected_attributes_dataset_file)
 df_laws = pd.read_csv(laws_file)
 df_protected_attributes = pd.read_csv(protected_attributes_file)
 df_protected_attributes_laws = pd.read_csv(protected_attributes_laws_file)
@@ -109,7 +108,7 @@ conn = sqlite3.connect(":memory:")  # In-memory database
 df_bias_metrics.to_sql("bias_metrics_data", conn, index=False, if_exists='replace')
 df_bias_tools.to_sql("bias_detection_tools", conn, index=False, if_exists='replace')
 df_datasets.to_sql("datasets_data", conn, index=False, if_exists='replace')
-df_critical_domains.to_sql("critical_domains_data", conn, index=False, if_exists='replace')
+df_protected_attributes_dataset.to_sql("protected_attributes_dataset_data", conn, index=False, if_exists='replace')
 df_laws.to_sql("laws_data", conn, index=False, if_exists='replace')
 df_protected_attributes.to_sql("protected_attributes_data", conn, index=False, if_exists='replace')
 df_protected_attributes_laws.to_sql("protected_attributes_laws_data", conn, index=False, if_exists='replace')
@@ -258,11 +257,9 @@ def display_chat_messages(logo_picture):
                     image, caption=os.path.basename("Visualization"), channels="RGB"
                 )
             elif is_csv(message["content"]):
-
                 if os.path.exists(message["content"]):
                     df = pd.read_csv(message["content"])
                     st.dataframe(df)
-
             else:
                 st.markdown(message["content"])
 
@@ -281,6 +278,8 @@ def display_chat_messages(logo_picture):
 def main():
 
     initialize_variables()
+    load_dotenv()
+
     logo_picture = "./logo/bot_logo.png"
     # Set page configuration
     st.set_page_config(
@@ -288,6 +287,13 @@ def main():
         page_icon="⚖️",
         layout="wide"
     )
+    api_key = os.getenv("OPENAI_API_KEY")
+
+    if not api_key:
+        api_key = st.text_input("Enter your OpenAI API key", type="password")
+    if api_key:
+        os.environ["OPENAI_API_KEY"] = api_key
+        st.success("API key set for this session.")
 
     # Layout for title and description
     col1, col2 = st.columns([2, 4])
@@ -403,8 +409,10 @@ This structured yet flexible approach ensures a comprehensive examination of bia
     st.markdown("🔍 **Explore bias in datasets and improve AI fairness with Talk with Your Bias!**")
     display_chat_messages(logo_picture)
     if type(df)!=type(None):
-        st.session_state.dataset = df
-        st.session_state.dataset.to_csv("csv_files/original.csv", index=False)
+        if not df is st.session_state.dataset:
+            st.session_state.dataset = df
+            st.session_state.dataset.to_csv("csv_files/original.csv", index=False)
+            st.session_state.messages.append({"role": "assistant", "content": "csv_files/original.csv"})
 
     def inject_bias(filename, conversation_history):
         try:
@@ -484,21 +492,20 @@ This structured yet flexible approach ensures a comprehensive examination of bia
         )
 
         try:
+            df = st.session_state.dataset
             prompt += "Measured: " + st.session_state.bias_detection_metric_values
             session_id_vis = generate_session_id(5)
             r = asyncio.run(llm_visualisation_generation(prompt, session_id_vis))
-            print(r)
+            print("response json:\n", r)
             content = st.write_stream(response_generator(r["Text_for_user"]))
-            print(r["add_traces"])
+            print("traces:", r["add_traces"])
             ldict = {}
             exec(r["add_traces"], locals(), ldict)
-            print("ok")
             # Update the layout
             eval(r["fig.update_layout"])
-            print("ok")
             if check_empty_plot(fig):
                 raise Exception("I got empty plot. Fix it.")
-            code.append(f"""ldict = {{}}\nexec("{r["add_traces"]}", locals(), ldict)\n{r['fig.update_layout']}""")
+            code.append(f"""df = st.session_state.dataset\nldict = {{}}\nexec("{r["add_traces"]}", locals(), ldict)\n{r['fig.update_layout']}""")
 
         except Exception as _:
             try:
@@ -563,15 +570,19 @@ This structured yet flexible approach ensures a comprehensive examination of bia
                 )
             print(result)
             # Display the result from LLM
+            df_info = ""
+            if type(st.session_state.dataset) != type(None):
+                df_info = "some samples from the dataset:\n" + st.session_state.dataset.head(5).to_csv() + "\n" + st.session_state.dataset.tail(3).to_csv() + "\n"
             if result is not None:
                 try:
+                    prompt = df_info + prompt
                     LLM_err = result["LLM_err"]
                     if LLM_err == "":
+                        if st.session_state.bias_detection_context:
+                            context = "bias detection metrics results: " + st.session_state.bias_detection_context + "\n"
+                        else:
+                            context = ""
                         if result['module_name'] == "None":
-                            if st.session_state.bias_detection_context:
-                                context = "take into account the context: bias detection metrics results: " + st.session_state.bias_detection_context + "\n"
-                            else:
-                                context = ""
                             st.write(f"Calling chat module.")
                             result_ = asyncio.run(llm_chat_generation(context + '\n' + prompt, st.session_state.session_id))
                             content = st.markdown(result_)
@@ -581,11 +592,6 @@ This structured yet flexible approach ensures a comprehensive examination of bia
                             st.session_state.messages.append({"role": "assistant", "content": "WARN" + result["warning"]})
 
                         #text2sql,datagen,biasdet,visual,biasinj
-                        if st.session_state.bias_detection_context:
-                            context = "bias detection metrics results: " + st.session_state.bias_detection_context + "\n"
-                        else:
-                            context = ""
-
                         if result['module_name'] == "text2sql":
                             st.write(f"Calling module: Text-to-sql")
                             result_ = asyncio.run(llm_query_generation(prompt, st.session_state.session_id))
@@ -698,4 +704,4 @@ if __name__ == "__main__":
         main()
     except Exception as e:
         print(f"The following error occurred during running main: {e}")
-        st.write("An error occurred. Please reload the page and try again.")
+        st.write("Please reload the page and try again.")

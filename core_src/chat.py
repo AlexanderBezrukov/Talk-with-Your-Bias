@@ -10,9 +10,6 @@ from langchain_core.chat_history import (
 from langchain_core.runnables.history import RunnableWithMessageHistory
 from langchain_core.messages import HumanMessage, AIMessage
 
-OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
-
-
 store = {}
 
 def get_session_history(session_id: str) -> BaseChatMessageHistory:
@@ -24,7 +21,7 @@ def get_session_history(session_id: str) -> BaseChatMessageHistory:
 class Chat_Generator:
     def __init__(self, model_name:str, prompt_template:type(PromptTemplates)):
         self.prompt = prompt_template
-        self.llm = ChatOpenAI(openai_api_key=OPENAI_API_KEY, model_name=model_name, temperature=0.00001)
+        self.llm = ChatOpenAI(openai_api_key=os.getenv("OPENAI_API_KEY"), model_name=model_name, temperature=0.00001)
     async def predict(self, query, session_id="session1") -> dict:
 
         try:

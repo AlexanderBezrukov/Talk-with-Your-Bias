@@ -11,8 +11,6 @@ from langchain_core.chat_history import (
 import io
 import sys
 
-OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
-
 store = {}
 def get_session_history(session_id: str) -> BaseChatMessageHistory:
     if session_id not in store:
@@ -29,16 +27,17 @@ class BiasDetection:
             # Instructions:
             1. Review the provided table information and conversation history thoroughly. Ensure that you understand the critical domain of dataset and data context, the types of columns present, and any specific requirements for handling them. Use the correct column names provided in the table description and avoid introducing new columns.
             2. Pay particular attention to data types (e.g., categorical vs. numerical) and ensure these types are preserved throughout the analysis. Avoid unintentional data type conversions by converting the data back to the original type after operations like shifting or aggregating.
-            3. Generate Python code that conducts a comprehensive analysis of the DataFrame. The analysis should include but is not limited to:
+            3. Find and Consider all protected attributes in dataset columns. Full list of Protected Attributes: Race/Ethnicity, Color, National Origin, Religion or Belief, Sex/Gender, Familial Status, Disability, Age, Marital Status, Sexual Orientation, Genetic Information, Military or Veteran Status, Socioeconomic Status, Biometric Data, Migrant Status.
+            4. Generate Python code that conducts a comprehensive analysis of the DataFrame. The analysis should include but is not limited to:
                 - **Descriptive Statistics for different protected attributes:** Provide measures such as mean, median, standard deviation, and range for numerical columns.
                 - **Disparate Treatment Metrics:** Provide Disparate Treatment Metrics measures depending on target variable type, for Binary: Group-wise Mean Difference (GMD), Chi-Square Test for Dependence; for Categorical: Conditional Entropy Difference, for regression:Mean Outcome Difference (MOD).
                 - **Disparate Impact Analysis:** Measure Disparate Impact Metrics such as Disparate Impact Ratio (DIR), Statistical Parity Difference (SPD) if Target Variable  is Binary; Conditional Statistical Parity (CSP) if Target Variable is Categorical; and Kullback-Leibler (KL) Divergence, Theil Index if if Target Variable is Continious. Summarize the key comparisons and insights.
                 - **Counterfactual Fairness Test:** Measure Counterfactual Fairness Test. implementation depends on Target Variable type.
                 - **Outliers and Anomalies:** Identify and highlight any outliers or anomalies in the data that deviate significantly from the norm, and explain their potential impact in natural language.
-            4. Structure the code so that each analysis block is executed incrementally: perform an operation, then immediately print the results or insights in a clear, natural language format. Avoid printing raw DataFrames or tables directly.
-            5. Replace all direct DataFrame print statements with detailed descriptions of the analysis results. Use print statements to explain the significance of the data, trends, and statistics in an informative, narrative style. The print statements should not simply list values (e.g., "Measure1: Value1"). Instead, they should be full sentences that describe the findings (e.g., "The average revenue per customer in XY was XY for product group XY in country XY.").
-            6. If necessary, fill null values with a placeholder or use appropriate methods to handle missing data.
-            7. Do not use the return statement or generate visualizations. Focus solely on generating fairness analysis code.
+            5. Structure the code so that each analysis block is executed incrementally: perform an operation, then immediately print the results or insights in a clear, natural language format. Avoid printing raw DataFrames or tables directly.
+            6. Replace all direct DataFrame print statements with detailed descriptions of the analysis results. Use print statements to explain the significance of the data, trends, and statistics in an informative, narrative style. The print statements should not simply list values (e.g., "Measure1: Value1"). Instead, they should be full sentences that describe the findings (e.g., "The average revenue per customer in XY was XY for product group XY in country XY.").
+            7. If necessary, fill null values with a placeholder or use appropriate methods to handle missing data.
+            8. Do not use the return statement or generate visualizations. Focus solely on generating fairness analysis code.
             9. The code must load the DataFrame from the specified path, perform the fairness analysis, and use print statements to communicate the insights gained. Do not save any output to a file.
             10. Review the generated code for any syntax or logical errors before finalizing it. Ensure that the code is error-free and adheres to best practices.
             
@@ -80,8 +79,8 @@ class BiasDetection:
         # Objective:
         Your goal is to provide a clear and actionable summary of the analysis results, offering fairness insights that can guide further decision-making or investigation. Do not include any extraneous information or unnecessary details.
         """
-        self.llm1 = ChatOpenAI(openai_api_key=OPENAI_API_KEY, model_name=model_name, temperature=0.00001)
-        self.llm2 = ChatOpenAI(openai_api_key=OPENAI_API_KEY, model_name=model_name, temperature=0.05)
+        self.llm1 = ChatOpenAI(openai_api_key=os.getenv("OPENAI_API_KEY"), model_name=model_name, temperature=0.00001)
+        self.llm2 = ChatOpenAI(openai_api_key=os.getenv("OPENAI_API_KEY"), model_name=model_name, temperature=0.05)
 
 
     async def detect_bias(self, session_id: str, table_df_path: str, conversation_history: str) -> str:

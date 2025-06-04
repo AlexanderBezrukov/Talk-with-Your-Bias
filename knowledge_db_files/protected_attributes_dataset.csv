@@ -1,0 +1,34 @@
+dataset_name,protected_attribute
+COMPAS,Race/Ethnicity
+COMPAS,Sex/Gender
+ProPublica Violent Recidivism,Race/Ethnicity
+ProPublica Violent Recidivism,Sex/Gender
+Adult Census Income,Sex/Gender
+Credit Card Clients,Sex/Gender
+Credit Card Clients,Education
+Credit Card Clients,Marital Status
+MEPS,Race/Ethnicity
+MEPS,Sex/Gender
+MEPS,Socioeconomic Status
+Adult German Credit,Age
+Adult German Credit,National Origin
+Communities and Crime,Race/Ethnicity
+Communities and Crime,Socioeconomic Status
+Communities and Crime,Sex/Gender
+Health Heritage,Age
+Health Heritage,Sex/Gender
+Health Heritage,Socioeconomic Status
+Diabetes,Sex/Gender
+Boston Housing,Race/Ethnicity
+Dutch Census,National Origin
+Dutch Census,Religion or Belief
+LSAC,Race/Ethnicity
+LSAC,Sex/Gender
+Student—Mathematics,Age
+Student—Mathematics,Sex/Gender
+Student—Portuguese,Age
+Student—Portuguese,Sex/Gender
+OULAD,Sex/Gender
+Bank Marketing,Age
+Bank Marketing,Marital Status
+Ricci v. DeStefano,Race/Ethnicity
